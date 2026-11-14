@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Вибмаркет — установка киоска</title>
+<style>
+	:root {
+		--bg: #f6f6f4;
+		--card: #ffffff;
+		--text: #1d1d1b;
+		--muted: #6b6b66;
+		--line: #e4e4df;
+		--accent: #e2231a;
+		--accent-text: #ffffff;
+		--note: #fff7e0;
+		--note-line: #f0d98a;
+	}
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--bg: #151514;
+			--card: #1f1f1d;
+			--text: #f0f0ec;
+			--muted: #a3a39c;
+			--line: #33332f;
+			--note: #2a2617;
+			--note-line: #5c5126;
+		}
+	}
+	* { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--bg);
+		color: var(--text);
+		font: 16px/1.55 -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+	}
+	main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+	h1 { font-size: 28px; line-height: 1.2; margin: 0 0 6px; }
+	h2 { font-size: 20px; margin: 36px 0 10px; }
+	p, li { margin: 0 0 8px; }
+	ol, ul { padding-left: 22px; margin: 0 0 8px; }
+	.lead { color: var(--muted); margin-bottom: 24px; }
+	.card {
+		background: var(--card);
+		border: 1px solid var(--line);
+		border-radius: 14px;
+		padding: 20px;
+	}
+	.download { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+	.btn {
+		display: inline-block;
+		background: var(--accent);
+		color: var(--accent-text);
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 18px;
+		padding: 14px 22px;
+		border-radius: 10px;
+	}
+	.btn[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+	.btn--quiet {
+		background: transparent;
+		color: var(--text);
+		border: 1px solid var(--line);
+		font-size: 15px;
+		padding: 10px 16px;
+	}
+	.meta { color: var(--muted); font-size: 14px; }
+	.note {
+		background: var(--note);
+		border: 1px solid var(--note-line);
+		border-radius: 10px;
+		padding: 12px 14px;
+		margin: 12px 0;
+	}
+	kbd {
+		font: 600 13px/1 ui-monospace, Menlo, Consolas, monospace;
+		border: 1px solid var(--line);
+		border-bottom-width: 2px;
+		border-radius: 5px;
+		padding: 2px 6px;
+		background: var(--card);
+	}
+	.dev { margin-top: 48px; }
+	.dev h2 { font-size: 17px; margin-top: 0; }
+	footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+	<h1>Установка киоска «Вибмаркет»</h1>
+	<p class="lead">Делается один раз на каждом компьютере киоска. После этого обновления, настройки и перезапуск мы делаем удалённо.</p>
+
+	<div class="card download">
+		<a class="btn" id="prod-btn" href="https://github.com/vikarchai/vib-electron-releases/releases/latest" aria-disabled="true">Скачать установщик</a>
+		<div class="meta" id="prod-meta">Ищем последнюю версию…</div>
+	</div>
+
+	<p class="meta" style="margin-top:10px">Понадобится: пароль администратора этого компьютера, ID микромаркета, интернет, 20 минут.</p>
+
+	<h2>1. BIOS: включаться после отключения света</h2>
+	<p>Чтобы после пропадания электричества киоск включился сам. На ноутбуке и планшете этого пункта обычно нет — тогда пропустите шаг.</p>
+	<ol>
+		<li>Перезагрузите компьютер и сразу часто нажимайте <kbd>Delete</kbd> (иногда <kbd>F2</kbd>, <kbd>F10</kbd> или <kbd>Esc</kbd> — на экране при включении обычно написано «Press DEL to enter Setup»).</li>
+		<li>Найдите пункт с одним из названий: <b>Restore on AC Power Loss</b>, <b>AC Power Recovery</b>, <b>After Power Failure</b>, <b>AC Back</b>, <b>Power On after Power Fail</b>. Обычно он в разделе <b>Power</b>, <b>Advanced → APM</b> или <b>Chipset</b>.</li>
+		<li>Выберите <b>Power On</b> (или <b>Always On</b>).</li>
+		<li>Сохраните и выйдите: <kbd>F10</kbd> → <b>Yes</b>.</li>
+	</ol>
+	<p>Не нашли пункт — сфотографируйте экраны BIOS и пришлите нам.</p>
+
+	<h2>2. Установка</h2>
+	<ol>
+		<li>Войдите в Windows под своим обычным пользователем.</li>
+		<li>Скачайте установщик кнопкой вверху страницы и запустите его.</li>
+		<li>Если Windows пишет «Windows защитила ваш компьютер» — нажмите <b>Подробнее → Выполнить в любом случае</b>.</li>
+		<li>На запрос «Разрешить этому приложению вносить изменения?» введите <b>пароль администратора</b> и нажмите <b>Да</b>.</li>
+		<li>Откроется окно <b>«Настройка киоска»</b>. Ничего не нажимайте 1–2 минуты, пока не появится <b>«Готово»</b>.</li>
+		<li>Нажмите <kbd>Enter</kbd> — компьютер перезагрузится.</li>
+		<li>После перезагрузки Windows <b>сам</b> войдёт в пользователя <b>KIOSK</b>, и через 1–5 минут откроется киоск.</li>
+		<li>Если киоск просит ID — введите <b>ID микромаркета</b> и нажмите <b>«Сохранить ID»</b>.</li>
+	</ol>
+	<div class="note">Если в окне настройки есть красные строки «ОШИБКА» — сфотографируйте окно и пришлите нам. Перезагрузить компьютер всё равно можно.</div>
+
+	<h2>3. Проверка вместе с нами</h2>
+	<p>Позвоните или напишите нам, не уходя от киоска:</p>
+	<ol>
+		<li>Мы проверяем в панели, что всё зелёное, и подключаемся к компьютеру удалённо.</li>
+		<li>Отсканируйте любой товар — он должен появиться в корзине.</li>
+		<li>Для обычного компьютера: выдерните вилку из розетки на 10 секунд и включите обратно. Компьютер должен включиться и открыть киоск сам, без нажатий.</li>
+	</ol>
+
+	<h2>После установки</h2>
+	<ul>
+		<li><b>Не входите в Windows под другими пользователями</b> на этом компьютере. Если что-то нужно сделать — напишите нам, сделаем удалённо.</li>
+		<li>Пароль пользователя <b>KIOSK</b> заменён на новый, знать его не нужно: вход автоматический.</li>
+		<li>Не удаляйте программы <b>RustDesk</b> и <b>VkusnoiBistro</b> — через них мы обслуживаем киоск.</li>
+		<li>Закрыть киоск для обслуживания: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Q</kbd>. Через 30 минут он откроется сам.</li>
+	</ul>
+
+	<section class="card dev">
+		<h2>Тестовая версия</h2>
+		<p>Для тестирования на личных устройствах используйте эту версию. На киоски в магазинах её не ставьте: она работает с тестовым сервером, без службы удалённого обслуживания, и в ней могут быть недоработки.</p>
+		<div class="download">
+			<a class="btn btn--quiet" id="dev-btn" href="https://github.com/vikarchai/vib-electron-releases/releases" aria-disabled="true">Скачать тестовую версию</a>
+			<div class="meta" id="dev-meta">Ищем последнюю тестовую версию…</div>
+		</div>
+		<p class="meta" style="margin-top:10px">Установка — просто запустить файл, пароль администратора не нужен. Закрыть: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Q</kbd>.</p>
+	</section>
+
+	<footer>Версия на этой странице всегда последняя — ссылка обновляется сама после каждого выпуска.</footer>
+</main>
+<script>
+	(function ()
+	{
+		var API = 'https://api.github.com/repos/vikarchai/vib-electron-releases/releases?per_page=30';
+
+		function setup(release, btnId, metaId, label)
+		{
+			var btn  = document.getElementById(btnId);
+			var meta = document.getElementById(metaId);
+			var exe  = release && (release.assets || []).filter(function (a) { return /\.exe$/i.test(a.name); })[0];
+			if (!exe)
+			{
+				btn.removeAttribute('aria-disabled');
+				meta.textContent = 'Не удалось получить версию — кнопка откроет страницу выпусков.';
+				return;
+			}
+			btn.href = exe.browser_download_url;
+			btn.removeAttribute('aria-disabled');
+			var date = new Date(release.published_at).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+			var size = Math.round(exe.size / 1048576);
+			meta.textContent = label + ' ' + release.tag_name.replace(/^v/, '').replace(/-dev$/, '') + ' от ' + date + ' · ' + size + ' МБ';
+		}
+
+		fetch(API, { headers: { Accept: 'application/vnd.github+json' } })
+			.then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+			.then(function (list)
+			{
+				var live = list.filter(function (r) { return !r.draft; });
+				setup(live.filter(function (r) { return !r.prerelease; })[0], 'prod-btn', 'prod-meta', 'Версия');
+				setup(live.filter(function (r) { return r.prerelease; })[0], 'dev-btn', 'dev-meta', 'Тестовая версия');
+			})
+			.catch(function ()
+			{
+				setup(null, 'prod-btn', 'prod-meta');
+				setup(null, 'dev-btn', 'dev-meta');
+			});
+	})();
+</script>
+</body>
+</html>
